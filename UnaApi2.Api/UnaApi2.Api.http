@@ -1,0 +1,6 @@
+@UnaApi2.Api_HostAddress = http://localhost:5275
+
+GET {{UnaApi2.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
