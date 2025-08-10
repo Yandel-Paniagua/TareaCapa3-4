@@ -9,12 +9,15 @@ namespace UnaApi2.Application.Mapping
     {
         public AutoMapperProfile()
         {
-            CreateMap<District, DistrictReadDto>();
-            CreateMap<Municipality, MunicipalityReadDto>();
-            CreateMap<DistrictCreateDto, District>();
-            CreateMap<MunicipalityCreateDto, Municipality>();
-            CreateMap<DistrictUpdateDto, District>();
-            CreateMap<MunicipalityUpdateDto, Municipality>();
+            CreateMap<AlertasMeteorologica, AlertasMeteorologicaReadDto>();
+            CreateMap<ConsejosClimatico, ConsejosClimaticoReadDto>();
+            CreateMap<LecturasClimatica, LecturasClimaticaReadDto>();
+            CreateMap<AlertasMeteorologicaCreateDto, AlertasMeteorologica>();
+            CreateMap<ConsejosClimaticoCreateDto, ConsejosClimatico>();
+            CreateMap<LecturasClimaticaCreateDto, LecturasClimatica>();
+            CreateMap<AlertasMeteorologicaUpdateDto, AlertasMeteorologica>();
+            CreateMap<ConsejosClimaticoUpdateDto, ConsejosClimatico>();
+            CreateMap<LecturasClimaticaUpdateDto, LecturasClimatica>();
         }
     }
 }

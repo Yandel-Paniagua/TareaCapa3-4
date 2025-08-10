@@ -20,11 +20,13 @@ builder.Services.AddDbContext<UnaApiDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
-builder.Services.AddScoped<IDistrictService, DistrictService>();
+builder.Services.AddScoped<IConsejosClimaticoRepository, ConsejosClimaticoRepository>();
+builder.Services.AddScoped<IConsejosClimaticoService, ConsejosClimaticoService>();
+builder.Services.AddScoped<ILecturasClimaticaRepository, LecturasClimaticaRepository>();
+builder.Services.AddScoped<ILecturasClimaticaService, LecturasClimaticaService>();
+builder.Services.AddScoped<IAlertasMeteorologicaRepository, AlertasMeteorologicaRepository>(); 
+builder.Services.AddScoped<IAlertasMeteorologicaService, AlertasMeteorologicaService>();    
 
-builder.Services.AddScoped<IMunicipalityRepository, MunicipalityRepository>();
-builder.Services.AddScoped<IMunicipalityService, MunicipalityService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

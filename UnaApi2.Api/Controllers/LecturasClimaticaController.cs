@@ -7,21 +7,21 @@ namespace UnaApi2.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DistrictController : ControllerBase
+    public class LecturasClimaticaController : ControllerBase
     {
-        private readonly IDistrictService _districtService;
+        private readonly ILecturasClimaticaService _lecturasclimaticaService;
         
-        public DistrictController(IDistrictService districtService)
+        public LecturasClimaticaController(ILecturasClimaticaService lecturasclimaticaService)
         {
-            _districtService = districtService;
+            _lecturasclimaticaService = lecturasclimaticaService;
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DistrictReadDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<LecturasClimaticaReadDto>>> GetAll()
         {
             try
             {
-                var result = await _districtService.GetAllAsync();
+                var result = await _lecturasclimaticaService.GetAllAsync();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -31,19 +31,19 @@ namespace UnaApi2.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<DistrictReadDto>> GetById(int id)
+        public async Task<ActionResult<LecturasClimaticaReadDto>> GetById(int id)
         {
             try
             {
-                var result = await _districtService.GetByIdAsync(id);
+                var result = await _lecturasclimaticaService.GetByIdAsync(id);
                 if (result == null)
-                    return NotFound($"District con ID {id} no encontrado");
+                    return NotFound($"LecturasClimatica con ID {id} no encontrado");
                     
                 return Ok(result);
             }
-            catch (DistrictNotFoundException)
+            catch (LecturasClimaticaNotFoundException)
             {
-                return NotFound($"District con ID {id} no encontrado");
+                return NotFound($"LecturasClimatica con ID {id} no encontrado");
             }
             catch (Exception ex)
             {
@@ -52,17 +52,17 @@ namespace UnaApi2.Api.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<DistrictReadDto>> Create([FromBody] DistrictCreateDto createDto)
+        public async Task<ActionResult<LecturasClimaticaReadDto>> Create([FromBody] LecturasClimaticaCreateDto createDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
                     
-                var result = await _districtService.CreateAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+                var result = await _lecturasclimaticaService.CreateAsync(createDto);
+                return CreatedAtAction(nameof(GetById), new { id = result.LecturaId }, result);
             }
-            catch (DistrictValidationException ex)
+            catch (LecturasClimaticaValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -73,26 +73,26 @@ namespace UnaApi2.Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<ActionResult<DistrictReadDto>> Update(int id, [FromBody] DistrictUpdateDto updateDto)
+        public async Task<ActionResult<LecturasClimaticaReadDto>> Update(int id, [FromBody] LecturasClimaticaUpdateDto updateDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
                     
-                var result = await _districtService.UpdateAsync(id, updateDto);
+                var result = await _lecturasclimaticaService.UpdateAsync(id, updateDto);
                 if (result == null)
-                    return NotFound($"District con ID {id} no encontrado");
+                    return NotFound($"LecturasClimatica con ID {id} no encontrado");
                     
                 return Ok(result);
             }
-            catch (DistrictNotFoundException)
+            catch (LecturasClimaticaNotFoundException)
             {
-                return NotFound($"District con ID {id} no encontrado");
+                return NotFound($"LecturasClimatica con ID {id} no encontrado");
             }
-            catch (DistrictValidationException ex)
+            catch (LecturasClimaticaValidationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message);  
             }
             catch (Exception ex)
             {
@@ -105,15 +105,15 @@ namespace UnaApi2.Api.Controllers
         {
             try
             {
-                var result = await _districtService.DeleteAsync(id);
+                var result = await _lecturasclimaticaService.DeleteAsync(id);
                 if (!result)
-                    return NotFound($"District con ID {id} no encontrado");
+                    return NotFound($"LecturasClimatica con ID {id} no encontrado");
                     
                 return NoContent();
             }
-            catch (DistrictNotFoundException)
+            catch (LecturasClimaticaNotFoundException)
             {
-                return NotFound($"District con ID {id} no encontrado");
+                return NotFound($"LecturasClimatica con ID {id} no encontrado");
             }
             catch (Exception ex)
             {

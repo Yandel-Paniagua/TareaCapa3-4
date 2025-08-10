@@ -7,21 +7,21 @@ namespace UnaApi2.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MunicipalityController : ControllerBase
+    public class AlertasMeteorologicaController : ControllerBase
     {
-        private readonly IMunicipalityService _municipalityService;
+        private readonly IAlertasMeteorologicaService _alertasmeteorologicaService;
         
-        public MunicipalityController(IMunicipalityService municipalityService)
+        public AlertasMeteorologicaController(IAlertasMeteorologicaService alertasmeteorologicaService)
         {
-            _municipalityService = municipalityService;
+            _alertasmeteorologicaService = alertasmeteorologicaService;
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MunicipalityReadDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<AlertasMeteorologicaReadDto>>> GetAll()
         {
             try
             {
-                var result = await _municipalityService.GetAllAsync();
+                var result = await _alertasmeteorologicaService.GetAllAsync();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -31,19 +31,19 @@ namespace UnaApi2.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<MunicipalityReadDto>> GetById(int id)
+        public async Task<ActionResult<AlertasMeteorologicaReadDto>> GetById(int id)
         {
             try
             {
-                var result = await _municipalityService.GetByIdAsync(id);
+                var result = await _alertasmeteorologicaService.GetByIdAsync(id);
                 if (result == null)
-                    return NotFound($"Municipality con ID {id} no encontrado");
+                    return NotFound($"AlertasMeteorologica con ID {id} no encontrado");
                     
                 return Ok(result);
             }
-            catch (MunicipalityNotFoundException)
+            catch (AlertasMeteorologicaNotFoundException)
             {
-                return NotFound($"Municipality con ID {id} no encontrado");
+                return NotFound($"AlertasMeteorologica con ID {id} no encontrado");
             }
             catch (Exception ex)
             {
@@ -52,17 +52,17 @@ namespace UnaApi2.Api.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<MunicipalityReadDto>> Create([FromBody] MunicipalityCreateDto createDto)
+        public async Task<ActionResult<AlertasMeteorologicaReadDto>> Create([FromBody] AlertasMeteorologicaCreateDto createDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
                     
-                var result = await _municipalityService.CreateAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+                var result = await _alertasmeteorologicaService.CreateAsync(createDto);
+                return CreatedAtAction(nameof(GetById), new { id = result.AlertaId }, result);
             }
-            catch (MunicipalityValidationException ex)
+            catch (AlertasMeteorologicaValidationException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -73,26 +73,26 @@ namespace UnaApi2.Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<ActionResult<MunicipalityReadDto>> Update(int id, [FromBody] MunicipalityUpdateDto updateDto)
+        public async Task<ActionResult<AlertasMeteorologicaReadDto>> Update(int id, [FromBody] AlertasMeteorologicaUpdateDto updateDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
                     
-                var result = await _municipalityService.UpdateAsync(id, updateDto);
+                var result = await _alertasmeteorologicaService.UpdateAsync(id, updateDto);
                 if (result == null)
-                    return NotFound($"Municipality con ID {id} no encontrado");
+                    return NotFound($"AlertasMeteorologica con ID {id} no encontrado");
                     
                 return Ok(result);
             }
-            catch (MunicipalityNotFoundException)
+            catch (AlertasMeteorologicaNotFoundException)
             {
-                return NotFound($"Municipality con ID {id} no encontrado");
+                return NotFound($"AlertasMeteorologica con ID {id} no encontrado");
             }
-            catch (MunicipalityValidationException ex)
+            catch (AlertasMeteorologicaValidationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message);  
             }
             catch (Exception ex)
             {
@@ -105,15 +105,15 @@ namespace UnaApi2.Api.Controllers
         {
             try
             {
-                var result = await _municipalityService.DeleteAsync(id);
+                var result = await _alertasmeteorologicaService.DeleteAsync(id);
                 if (!result)
-                    return NotFound($"Municipality con ID {id} no encontrado");
+                    return NotFound($"AlertasMeteorologica con ID {id} no encontrado");
                     
                 return NoContent();
             }
-            catch (MunicipalityNotFoundException)
+            catch (AlertasMeteorologicaNotFoundException)
             {
-                return NotFound($"Municipality con ID {id} no encontrado");
+                return NotFound($"AlertasMeteorologica con ID {id} no encontrado");
             }
             catch (Exception ex)
             {
