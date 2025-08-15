@@ -25,9 +25,19 @@ builder.Services.AddScoped<IConsejosClimaticoService, ConsejosClimaticoService>(
 builder.Services.AddScoped<ILecturasClimaticaRepository, LecturasClimaticaRepository>();
 builder.Services.AddScoped<ILecturasClimaticaService, LecturasClimaticaService>();
 builder.Services.AddScoped<IAlertasMeteorologicaRepository, AlertasMeteorologicaRepository>(); 
-builder.Services.AddScoped<IAlertasMeteorologicaService, AlertasMeteorologicaService>();    
+builder.Services.AddScoped<IAlertasMeteorologicaService, AlertasMeteorologicaService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()   // Permitir cualquier origen
+            .AllowAnyMethod()   // Permitir cualquier método (GET, POST, PUT, DELETE, etc.)
+            .AllowAnyHeader();  // Permitir cualquier cabecera
+    });
+});
 
-
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,6 +45,7 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
